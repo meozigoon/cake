@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #e6dcc1; /* 약간 어두운 크림톤 배경 */
+    font-family: sans-serif;
+}
+
+#cake-container {
+    position: relative;
+    width: 400px;
+    height: calc(4 * 60px - 3 * 5px);
+    z-index: 10;
+}
+.layer {
+    position: absolute;
+    left: 50%;
+    transform-origin: center bottom;
+    width: var(--layer-width);
+    height: 60px;
+    border-radius: 20px 20px 10px 10px;
+    border-top: 8px solid #fff;
+    background: var(--layer-color);
+    opacity: 0;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    overflow: hidden;
+    z-index: 1;
+}
+.sprinkle {
+    position: absolute;
+    width: 4px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--sprinkle-color);
+    transform: rotate(var(--sprinkle-rot));
+    pointer-events: none;
+}
+
+/* candle on cake */
+#candle-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(3 * (60px - 5px) + 50px);
+    z-index: 20;
+    cursor: pointer;
+}
+.candle {
+    position: relative;
+    width: 12px;
+    height: 40px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.candle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 6px;
+    background: #333;
+    transform: translate(-50%, -100%);
+    opacity: 1;
+    z-index: 20;
+}
+
+/* flame */
+.flame {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%) scaleY(-1) skewX(-10deg);
+    width: 16px;
+    height: 32px;
+    background: linear-gradient(to top, #f44336 30%, #ffeb3b 80%);
+    border-radius: 50% 50% 40% 40%;
+    filter: blur(1px);
+    animation: flame-flicker 0.15s infinite alternate;
+    z-index: 20;
+    pointer-events: none;
+}
+@keyframes flame-flicker {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-2px) scale(1) skewX(-10deg);
+    }
+    to {
+        opacity: 0.7;
+        transform: translateX(-50%) translateY(2px) scale(1.1) skewX(10deg);
+    }
+}
+
+/* smoke puff */
+.smoke {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    width: 36px;
+    height: 36px;
+    background: radial-gradient(
+        circle,
+        rgba(80, 80, 80, 0.8) 30%,
+        transparent 30%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    animation: smoke-rise 3s ease-out forwards;
+}
+@keyframes smoke-rise {
+    0% {
+        transform: translate(-50%, 0) scale(0.5) rotate(0deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-50%, -100px) scale(2) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+#cake-text {
+    margin-top: 20px;
+    font-family: "Dancing Script", cursive;
+    font-size: 3rem;
+    color: #8b3d33;
+    text-align: center;
+    z-index: 10;
+}

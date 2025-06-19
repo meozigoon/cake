@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Candle Cake</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="cake-container"></div>
+        <div id="cake-text">Happy Birthday</div>
+        <script>
+            const widths = [360, 300, 240, 180],
+                colors = ["#e4a77d", "#d4845e", "#c8683f", "#b75029"],
+                delays = [0, 600, 1200, 1800],
+                thickness = 60,
+                overlap = 5,
+                step = thickness - overlap,
+                container = document.getElementById("cake-container");
+
+            // Build cake layers and sprinkles
+            widths.forEach((w, idx) => {
+                setTimeout(() => {
+                    const layer = document.createElement("div");
+                    layer.className = "layer";
+                    layer.style.setProperty("--layer-width", `${w}px`);
+                    layer.style.setProperty("--layer-color", colors[idx]);
+                    layer.style.bottom = `${idx * step}px`;
+                    layer.style.zIndex = `${widths.length - idx}`;
+                    const scale = 1 - idx * 0.05;
+                    layer.style.transform = `translate(-50%,0) scale(${scale})`;
+                    container.appendChild(layer);
+                    for (let i = 0; i < 12; i++) {
+                        const s = document.createElement("div");
+                        s.className = "sprinkle";
+                        s.style.setProperty(
+                            "--sprinkle-color",
+                            [
+                                "#f48fb1",
+                                "#ffcc80",
+                                "#ce93d8",
+                                "#a5d6a7",
+                                "#90caf9",
+                            ][Math.floor(Math.random() * 5)]
+                        );
+                        s.style.setProperty(
+                            "--sprinkle-rot",
+                            `${Math.random() * 360}deg`
+                        );
+                        s.style.left = `${10 + Math.random() * 80}%`;
+                        s.style.bottom = `${10 + Math.random() * 40}%`;
+                        layer.appendChild(s);
+                    }
+                    requestAnimationFrame(() => {
+                        layer.style.opacity = "1";
+                        layer.style.transform = `translate(-50%,-20px) scale(${scale})`;
+                    });
+                    setTimeout(() => {
+                        layer.style.transform = `translate(-50%,0) scale(${scale})`;
+                    }, 600);
+                }, delays[idx]);
+            });
+
+            // Candle, flame, smoke interaction
+            const totalDelay = delays[3] + 600 + 200;
+            setTimeout(() => {
+                const cc = document.createElement("div");
+                cc.id = "candle-container";
+                const candle = document.createElement("div");
+                candle.className = "candle";
+                cc.appendChild(candle);
+                const flame = document.createElement("div");
+                flame.className = "flame";
+                candle.appendChild(flame);
+                container.appendChild(cc);
+
+                let smokeInterval;
+                candle.addEventListener("click", () => {
+                    if (!candle.classList.contains("out")) {
+                        candle.classList.add("out");
+                        flame.style.display = "none";
+                        smokeInterval = setInterval(() => {
+                            const puff = document.createElement("div");
+                            puff.className = "smoke";
+                            candle.appendChild(puff);
+                            setTimeout(() => puff.remove(), 3000);
+                        }, 400);
+                    }
+                });
+            }, totalDelay);
+        </script>
+    </body>
+</html>

@@ -5,13 +5,14 @@
 }
 body {
     position: relative;
+    min-height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: #e6dcc1; /* 약간 어두운 크림톤 배경 */
+    background: #e6dcc1;
     font-family: sans-serif;
 }
 
@@ -45,7 +46,6 @@ body {
     pointer-events: none;
 }
 
-/* candle on cake */
 #candle-container {
     position: absolute;
     left: 50%;
@@ -75,7 +75,6 @@ body {
     z-index: 20;
 }
 
-/* flame */
 .flame {
     position: absolute;
     top: -30px;
@@ -101,7 +100,6 @@ body {
     }
 }
 
-/* smoke puff */
 .smoke {
     position: absolute;
     left: 50%;
@@ -135,4 +133,18 @@ body {
     color: #8b3d33;
     text-align: center;
     z-index: 10;
+}
+
+#footer {
+    margin-top: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    text-align: center;
+    color: #888;
+    font-size: 0.95rem;
+    font-family: sans-serif;
+    background: transparent;
+    z-index: 100;
 }

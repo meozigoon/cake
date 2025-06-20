@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Interactive Candle Cake</title>
+        <title>HBD!</title>
         <link
             href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
             rel="stylesheet"
@@ -22,7 +22,6 @@
                 step = thickness - overlap,
                 container = document.getElementById("cake-container");
 
-            // Build cake layers and sprinkles
             widths.forEach((w, idx) => {
                 setTimeout(() => {
                     const layer = document.createElement("div");
@@ -65,7 +64,6 @@
                 }, delays[idx]);
             });
 
-            // Candle, flame, smoke interaction
             const totalDelay = delays[3] + 600 + 200;
             setTimeout(() => {
                 const cc = document.createElement("div");
@@ -93,5 +91,6 @@
                 });
             }, totalDelay);
         </script>
+        <footer id="footer">&copy; 2025 이동하. All rights reserved.</footer>
     </body>
 </html>
